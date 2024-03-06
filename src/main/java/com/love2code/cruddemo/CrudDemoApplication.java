@@ -19,13 +19,45 @@ public class CrudDemoApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
 //            createStudent(studentDAO);
-//            createMultipleStudents(studentDAO);
+           createMultipleStudents(studentDAO);
 
 //            System.out.println("Student is: " + studentDAO.findById(1));
 
 //            queryForStudents(studentDAO);
-            queryForStudentsByLastName(studentDAO);
+//            queryForStudentsByLastName(studentDAO);
+
+//            updateStudent(studentDAO);
+
+//            deleteStudent(studentDAO);
+//            deleteAllStudents(studentDAO);
+
         };
+    }
+
+    private void deleteAllStudents(StudentDAO studentDAO) {
+        try {
+            System.out.println(studentDAO.deleteAll());
+        } catch (Exception e) {
+            System.out.println("Student not found" + e.getMessage());
+        }
+    }
+
+    private void deleteStudent(StudentDAO studentDAO) {
+        try {
+            studentDAO.deleteById(1);
+        } catch (Exception e) {
+            System.out.println("Student not found" + e.getMessage());
+        }
+
+    }
+
+    private void updateStudent(StudentDAO studentDAO) {
+        Student student = studentDAO.findById(1);
+        student.setFirstName("Scooby");
+        student.setLastName("Doo");
+        student.setEmail("Scooby@gmail.com");
+
+        studentDAO.update(student);
     }
 
     private void queryForStudentsByLastName(StudentDAO studentDAO) {
